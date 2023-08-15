@@ -18,7 +18,7 @@ class SubscriptionController extends Controller
             ->first();
 
         if ($product) {
-            if (remainingDays($product->end_date)){
+            if (remainingDays($product->end_date)>0){
                 return response()->json([
                     'message' => 'Subscription found and updated',
                     'status' => true,
@@ -77,4 +77,6 @@ class SubscriptionController extends Controller
         }
 
     }
+
+
 }
