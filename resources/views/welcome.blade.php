@@ -34,9 +34,9 @@
             <div class="max-w-7xl mx-auto p-6 lg:p-8">
                 <div class="flex justify-center">
                     <!-- Welcome Screen -->
-                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-8">
-                        <h1 class="text-4xl font-semibold mb-4">Welcome to Your Dashboard</h1>
-                        <p class="text-lg text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <div class="dark:text-white text-center overflow-hidden shadow-sm sm:rounded-lg p-8">
+                        <h1 class="text-xl font-semibold mb-4">Welcome to Soft-ITBD Subscription</h1>
+                        <p class="text-lg ">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
             </div>

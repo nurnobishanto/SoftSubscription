@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('product_id');
             $table->decimal('amount', 10, 2);
-            $table->string('method');
+            $table->string('method')->nullable();
             $table->string('status')->default('pending');
             $table->timestamps();
             $table->softDeletes();

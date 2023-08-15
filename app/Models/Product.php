@@ -20,6 +20,7 @@ class Product extends Model
         'phone',
         'url',
         'image',
+        'billing',
         'price',
         'start_date',
         'end_date',
