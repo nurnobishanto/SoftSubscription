@@ -1,52 +1,87 @@
-<x-guest-layout>
-    <div class="py-2">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 gap-4">
-                <!-- Card 1 -->
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-4">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Subscription Invoice - {{$invoice->invid}}</title>
+    <!-- Add Bootstrap CSS link -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        p{
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Main Content -->
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header text-center">
+                    <img src="https://soft-itbd.com/uploads/pPfdJdl0LML9wHXmZxNDgNdYytiJUU-metac09GVC1JVEJELkNPTSAoMSkuZ2lm-.gif" class="img-fluid">
+                    <h2 class="card-title">Product Subscription</h2>
+                </div>
+                <div class="card-body">
                     <!-- Invoice Design -->
                     <h2 class="text-lg font-semibold mb-2">Invoice</h2>
-                    <div class="border-t border-gray-300 pt-2">
-                        <p class="text-sm"><strong>Bill To:</strong></p>
-                        <p>{{$user->first_name}} {{$user->last_name}}</p>
-                        <p>{{$user->email}}, {{$user->phone}}</p>
-                        <p>{{$user->address}}, {{$user->zip_code}}</p>
-                        <p>{{$user->city}}, {{$user->state}}, {{$user->country}}</p>
-
-                    </div>
-                    <div class="border-t border-gray-300 pt-2">
-                        <p class="text-sm"><strong>Product Information:</strong></p>
-                        <p>Product Name : {{$product->name}}</p>
-                        <p>Billing : {{$product->billing}}</p>
-                        <p>Amount : {{$product->price}}</p>
-                        <p>Purchased : {{$product->start_date}}</p>
-                        <p>Expired : {{$product->end_date}}</p>
-                    </div>
-                    <div class="border-t border-gray-300 pt-2">
-                        <p class="text-sm"><strong>Next Expire (After Payment)</strong></p>
-                        <p> {{$product->end_date}}</p>
-                    </div>
-
-                    <div class="text-right mt-4">
-                        <p><strong>Total: {{$product->price}}</strong></p>
-                        <!-- Payment Method Selection -->
-                        <div class="mt-4">
-                            <label class="block text-sm font-medium text-gray-700">Select Payment Method:</label>
-                            <select class="mt-1  w-48 p-2 border border-gray-300 rounded-md">
-                                <option value="bkash">Bkash</option>
-                                <option value="bkash">Bkash</option>
-                                <option value="bkash">Bkash</option>
-
-                            </select>
-                        </div>
-                        <!-- Pay Now Button -->
-                        <div class="mt-4 text-right">
-                            <button class="px-4 py-2  text-white rounded-md" style="background-color: green">Pay Now</button>
-                        </div>
-                    </div>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Bill To:</th>
+                            <th>Product Information:</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>{{$user->first_name}} {{$user->last_name}}</p>
+                                <p>{{$user->email}}, {{$user->phone}}</p>
+                                <p>{{$user->address}}, {{$user->zip_code}}</p>
+                                <p>{{$user->city}}, {{$user->state}}, {{$user->country}}</p>
+                            </td>
+                            <td>
+                                <p>Product Name : {{$product->name}}</p>
+                                <p>Billing : {{$product->billing}}</p>
+                                <p>Amount : {{$product->price}}</p>
+                                <p>Purchased : {{$product->start_date}}</p>
+                                <p>Expired : {{$product->end_date}}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Next Expire (After Payment)</th>
+                            <th>{{nextBillingDate($product->billing,$product->end_date) }}</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <!-- Pay Now Button -->
+                                @if($invoice->status!='success')
+                                    <div class="mt-4 text-right">
+                                        <form action="{{ route('url-create') }}" method="POST">
+                                            @csrf
+                                            <input type="text" value="{{$invoice->amount}}" id="amount" name="amount" style="display: none">
+                                            <input type="text" value="{{$invoice->invid}}" id="invid" name="invid" style="display: none">
+                                            <input type="submit" id="bKash_button" class="px-4 py-2  text-white rounded-md" style="background-color: green" value="Pay With bKash">
+                                        </form>
+                                    </div>
+                                @endif
+                            </td>
+                            <td>
+                                <p><strong>Total: {{$product->price}}</strong></p>
+                                <p><strong>Payment Charge: {{$extra_amount}}</strong></p>
+                                <p><strong>Net Pay: {{$invoice->amount}}</strong></p>
+                                <p><strong>Status: {{$invoice->status}}</strong></p>
+                            </td>
+                        </tr>
+                    </table>
 
                 </div>
             </div>
         </div>
     </div>
-</x-guest-layout>
+</div>
+
+<!-- Add Bootstrap JS (optional) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+

@@ -1,5 +1,6 @@
 <?php
 
+
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,15 @@ Route::get('/', function () {
 Route::post('check-subscription',[\App\Http\Controllers\SubscriptionController::class,'check_subscription']);
 Route::get('expired/{pid}',[\App\Http\Controllers\SubscriptionController::class,'expired'])->name('expired');
 Route::get('renew/{pid}',[\App\Http\Controllers\SubscriptionController::class,'renew'])->name('renew');
+
+// Checkout (URL) User Part
+Route::get('/bkash/pay', [\App\Http\Controllers\Payment\BkashController::class, 'payment'])->name('url-pay');
+Route::post('/bkash/create', [\App\Http\Controllers\Payment\BkashController::class, 'createPayment'])->name('url-create');
+Route::get('/bkash/callback', [\App\Http\Controllers\Payment\BkashController::class, 'callback'])->name('url-callback');
+
+// Checkout (URL) Admin Part
+Route::get('/bkash/refund', [\App\Http\Controllers\Payment\BkashController::class, 'getRefund'])->name('url-get-refund');
+Route::post('/bkash/refund', [\App\Http\Controllers\Payment\BkashController::class, 'refundPayment'])->name('url-post-refund');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

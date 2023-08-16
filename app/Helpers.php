@@ -14,6 +14,45 @@ function remainingDays($end_date): float|int
         return $end_date->diffInDays($now);
     }
 }
+function completeInvoiceBkash($invid, $amount){
+    $invoice =  \App\Models\Invoice::where('invid',$invid)->first();
+    $invoice->status = 'success';
+    $invoice->method = 'Bkash';
+    $invoice->update();
+
+    $product = $invoice->product;
+
+    $product_price = $product->price;
+    $product_end_date = $product->end_date;
+    $product_billing = $product->billing;
+    if ($product_price>=$amount){
+        $extended_date = Carbon::parse($product_end_date);
+        if ($product_billing == 'daily') {
+            $extended_date->addDay();
+        } elseif ($product_billing == 'weekly') {
+            $extended_date->addWeek();
+        } elseif ($product_billing == 'monthly') {
+            $extended_date->addMonth();
+        } elseif ($product_billing == 'yearly') {
+            $extended_date->addYear();
+        }
+        $product->update(['end_date' => $extended_date]);
+
+    }
+}
+function nextBillingDate($billing,$date){
+    $extended_date = Carbon::parse($date);
+    if ($billing == 'daily') {
+        $extended_date->addDay();
+    } elseif ($billing == 'weekly') {
+        $extended_date->addWeek();
+    } elseif ($billing == 'monthly') {
+        $extended_date->addMonth();
+    } elseif ($billing == 'yearly') {
+        $extended_date->addYear();
+    }
+    return $extended_date->format('Y-m-d');
+}
 function checkSubscription(){
     $apiUrl = 'https://subscription.soft-itbd.com/check-subscription';
     $data = [

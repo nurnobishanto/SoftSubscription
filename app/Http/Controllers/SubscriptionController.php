@@ -49,8 +49,14 @@ class SubscriptionController extends Controller
         $product =  Product::where('pid',$pid)->first();
         if($product){
             $invoice = Invoice::where('product_id',$product->id)->where('status','!=','success')->first();
+            $product_price = $product->price;
+            $extra_percentage = 1.85; // 1.8% extra
+            $extra_amount = round(($product_price * $extra_percentage) / 100);
             if($invoice){
+                $invoice->amount = $product->price+$extra_amount;
+                $invoice->update();
                 $data['pid']= $pid;
+                $data['extra_amount']= $extra_amount;
                 $data['invoice']= $invoice;
                 $data['product']= $product;
                 $data['user']= $product->user;
@@ -59,11 +65,12 @@ class SubscriptionController extends Controller
                 $invoice = Invoice::create([
                     'user_id'=>$product->user->id,
                     'product_id'=>$product->id,
-                    'amount'=>$product->price,
+                    'amount'=>$product->price+$extra_amount,
                     'status'=>'pending',
                     'method'=>'',
                 ]);
                 $data['pid']= $pid;
+                $data['extra_amount']= $extra_amount;
                 $data['invoice']= $invoice;
                 $data['product']= $product;
                 $data['user']= $product->user;
