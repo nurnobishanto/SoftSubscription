@@ -7,7 +7,7 @@
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-2">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-4">
-            <div class="table-responsive">
+            <div class="table-responsive sm:max-w-full overflow-x-auto">
                 <h2 class="text-lg font-semibold mb-2">Invoice List</h2>
                 <table class="border-collapse w-full mt-4">
                     <thead>
@@ -15,7 +15,7 @@
                         <th class="border border-gray-300 px-2 py-1">INVID</th>
                         <th class="border border-gray-300 px-2 py-1">Amount</th>
                         <th class="border border-gray-300 px-2 py-1">Method</th>
-                        <th class="border border-gray-300 px-2 py-1">Action</th>
+                        <th class="border border-gray-300 px-2 py-1" style="width: 100px">Action</th>
                     </tr>
                     </thead>
                     <tbody>

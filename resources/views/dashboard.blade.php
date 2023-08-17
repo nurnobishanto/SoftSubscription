@@ -43,13 +43,13 @@
                 <table class="border-collapse w-full mt-4">
                     <thead>
                     <tr>
-                        <th class="border border-gray-300 px-2 py-1">Item</th>
-                        <th class="border border-gray-300 px-2 py-1">Description</th>
-                        <th class="border border-gray-300 px-2 py-1">Billing</th>
-                        <th class="border border-gray-300 px-2 py-1">Price</th>
-                        <th class="border border-gray-300 px-2 py-1">Expire Date</th>
-                        <th class="border border-gray-300 px-2 py-1">Remaining</th>
-                        <th class="border border-gray-300 px-2 py-1">Action</th>
+                        <th class="border border-gray-300 px-2 py-1" style="width: 20%">Item</th>
+                        <th class="border border-gray-300 px-2 py-1" style="width: 30%">Description</th>
+                        <th class="border border-gray-300 px-2 py-1" style="width: 10%">Billing</th>
+                        <th class="border border-gray-300 px-2 py-1" style="width: 10%">Price</th>
+                        <th class="border border-gray-300 px-2 py-1" style="width: 10%">Expire Date</th>
+                        <th class="border border-gray-300 px-2 py-1" style="width: 10%">Remaining</th>
+                        <th class="border border-gray-300 px-2 py-1" style="width: 10%">Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -61,7 +61,11 @@
                         <td class="border border-gray-300 px-2 py-1">{{$item->price}}</td>
                         <td class="border border-gray-300 px-2 py-1">{{$item->end_date}}</td>
                         <td class="border border-gray-300 px-2 py-1">{{remainingDays($item->end_date)}} Days</td>
-                        <td class="border border-gray-300 px-2 py-1"> <a class="btn border px-2 py-1 bg-gray-500 text-white" href="{{route('renew',['pid'=>$item->pid])}}">Extend</a> </td>
+                        <td class="border border-gray-300 px-2 py-1">
+                            <a class="btn border px-2 py-1 text-white " href="{{route('renew',['pid'=>$item->pid])}}" style="background-color: green">Extend</a>
+                            <p style="margin: 0px;line-height: 15px">-----------</p>
+                            <a class="btn border px-2 py-1 bg-red-500 text-white" href="{{route('invoices',['pid'=>$item->pid])}}">Invoices</a>
+                        </td>
                     </tr>
                     @endforeach
                     </tbody>
