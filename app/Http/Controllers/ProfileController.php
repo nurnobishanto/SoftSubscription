@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Invoice;
+use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,5 +58,14 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    public function invoices($pid){
+        $product = Product::where('pid',$pid)->first();
+        $invoices = $product->invoices;
+        return view('invoices',compact('invoices','product'));
+    }
+    public function products(){
+        return view('products');
     }
 }

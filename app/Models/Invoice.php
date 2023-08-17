@@ -16,6 +16,8 @@ class Invoice extends Model
         'product_id',
         'amount',
         'method',
+        'trxid',
+        'payment_id',
         'status',
     ];
 

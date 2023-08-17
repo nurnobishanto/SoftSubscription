@@ -15,6 +15,14 @@
     @if(isset($response))
         Your bKash trxID: {{ $response }}
     @endif
+    @if(isset($invoice))
+        @php
+       $inv = \App\Models\Invoice::where('invid',$invoice)->first();
+        @endphp
+        <p><a style="background-color: green;padding: 10px 20px;color: white;text-decoration: none" href="{{$inv->product->url}}" target="_blank" >Go to your website</a></p>
+
+    @endif
+
 </div>
 </body>
 </html>

@@ -42,6 +42,7 @@ class SubscriptionController extends Controller
         $data = array();
         $data['error']= false;
         $data['pid']= $pid;
+        $data['product']= Product::where('pid',$pid)->first();
         return view('expired',$data);
     }
     public function renew($pid){
@@ -80,6 +81,7 @@ class SubscriptionController extends Controller
         }else{
             $data['pid']= $pid;
             $data['error']= true;
+            $data['product']= Product::where('pid',$pid)->first();
             return view('expired',$data);
         }
 

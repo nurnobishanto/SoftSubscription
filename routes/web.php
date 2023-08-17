@@ -29,14 +29,16 @@ Route::post('/bkash/create', [\App\Http\Controllers\Payment\BkashController::cla
 Route::get('/bkash/callback', [\App\Http\Controllers\Payment\BkashController::class, 'callback'])->name('url-callback');
 
 // Checkout (URL) Admin Part
-Route::get('/bkash/refund', [\App\Http\Controllers\Payment\BkashController::class, 'getRefund'])->name('url-get-refund');
-Route::post('/bkash/refund', [\App\Http\Controllers\Payment\BkashController::class, 'refundPayment'])->name('url-post-refund');
+//Route::get('/bkash/refund', [\App\Http\Controllers\Payment\BkashController::class, 'getRefund'])->name('url-get-refund');
+//Route::post('/bkash/refund', [\App\Http\Controllers\Payment\BkashController::class, 'refundPayment'])->name('url-post-refund');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/products', [ProfileController::class, 'products'])->name('products');
+    Route::get('/invoices/{pid}', [ProfileController::class, 'invoices'])->name('invoices');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

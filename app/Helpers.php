@@ -14,10 +14,12 @@ function remainingDays($end_date): float|int
         return $end_date->diffInDays($now);
     }
 }
-function completeInvoiceBkash($invid, $amount){
+function completeInvoiceBkash($invid, $amount,$trxID,$paymentID){
     $invoice =  \App\Models\Invoice::where('invid',$invid)->first();
     $invoice->status = 'success';
     $invoice->method = 'Bkash';
+    $invoice->trxid = $trxID;
+    $invoice->payment_id = $paymentID;
     $invoice->update();
 
     $product = $invoice->product;

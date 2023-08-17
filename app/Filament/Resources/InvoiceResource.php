@@ -23,6 +23,8 @@ class InvoiceResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\TextInput::make('trxid')->visibleOn('view'),
+                Forms\Components\TextInput::make('payment_id')->visibleOn('view'),
                 Forms\Components\Select::make('user_id')->relationship('user','first_name')->required(),
                 Forms\Components\Select::make('product_id')->relationship('product','name')->required(),
                 Forms\Components\TextInput::make('amount')->numeric()->required(),
@@ -36,6 +38,8 @@ class InvoiceResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('invid')->searchable(),
+                Tables\Columns\TextColumn::make('trxid')->sortable(),
+                Tables\Columns\TextColumn::make('payment_id')->sortable(),
                 Tables\Columns\TextColumn::make('user.first_name')->searchable(),
                 Tables\Columns\TextColumn::make('product.name')->searchable(),
                 Tables\Columns\TextColumn::make('amount')->sortable(),

@@ -165,16 +165,18 @@ class BkashController extends Controller
                 sleep(1);
                 $query = $this->queryPayment($allRequest['paymentID']);
                 return view('Bkash.success')->with([
-                    'response' => $query
+                    'response' => $query,
+                    'invoice' => 0,
                 ]);
             }
 
             if ($res_array['statusCode'] == '0000' && $res_array['transactionStatus'] == 'Completed'){
-                completeInvoiceBkash($res_array['payerReference'],$res_array['amount']);
+                completeInvoiceBkash($res_array['payerReference'],$res_array['amount'],$res_array['trxID'],$res_array['paymentID']);
             }
 
             return view('Bkash.success')->with([
-                'response' => $res_array['trxID']
+                'response' => $res_array['trxID'],
+                'invoice' => $res_array['payerReference'],
             ]);
 
         }
@@ -205,7 +207,7 @@ class BkashController extends Controller
         $res_array = json_decode($response,true);
 
         if(isset($res_array['refundTrxID'])){
-            // your database insert operation
+
         }
 
         return view('Bkash.refund')->with([
