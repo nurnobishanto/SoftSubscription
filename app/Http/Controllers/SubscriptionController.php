@@ -22,12 +22,14 @@ class SubscriptionController extends Controller
                 return response()->json([
                     'message' => 'Subscription found and updated',
                     'status' => true,
+                    'remaining' => remainingDays($product->end_date),
                     'product' => $product
                 ], 200);
             }
             return response()->json([
                 'message' => 'Subscription found and expired',
                 'status' => false,
+                'remaining' => remainingDays($product->end_date),
                 'product' => $product
             ], 200);
 
