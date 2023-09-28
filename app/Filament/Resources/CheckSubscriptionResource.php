@@ -34,6 +34,8 @@ class CheckSubscriptionResource extends Resource
                 Tables\Columns\TextColumn::make('domain')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('email')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('phone')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('created_at')->sortable(),
+
             ])
             ->filters([
                 //

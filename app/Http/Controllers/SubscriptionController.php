@@ -10,9 +10,9 @@ use Illuminate\Http\Request;
 class SubscriptionController extends Controller
 {
     public function check_subscription(Request $request){
-        $domain = $request->domain??null;
-        $email = $request->email??null;
-        $phone = $request->phone??null;
+        $domain = $request->domain??'-';
+        $email = $request->email??'-';
+        $phone = $request->phone??'-';
 
         CheckSubscription::create([
             'domain' => $domain,
