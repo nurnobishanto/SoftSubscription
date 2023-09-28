@@ -39,7 +39,7 @@
     <!-- Hotline Information -->
     <div class="mt-4 text-center">
         <p class="text-muted">For assistance, please call our hotline:</p>
-        <a href="tel:+8801314961093" class="text-decoration-none"><h2><strong>Hotline: +880 1314 961093</strong></h2></a>
+        <a href="tel:+8801770634816" class="text-decoration-none"><h2><strong>Hotline: +880 1770 634816</strong></h2></a>
     </div>
 </div>
 </body>
