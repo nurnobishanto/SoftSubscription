@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CheckSubscription;
 use App\Models\Invoice;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -12,9 +13,15 @@ class SubscriptionController extends Controller
         $domain = $request->domain??null;
         $email = $request->email??null;
         $phone = $request->phone??null;
+
+        CheckSubscription::create([
+            'domain' => $domain,
+            'email' => $email,
+            'phone' => $phone,
+        ]);
         $product = Product::where('domain', $domain)
-            ->where('email', $email)
-            ->where('phone', $phone)
+            ->orWhere('email', $email)
+            ->orWhere('phone', $phone)
             ->first();
 
         if ($product) {
